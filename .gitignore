@@ -25,3 +25,90 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# -------------------------------------------------------------------
+# Python
+# -------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+profile_default/
+__pypackages__/
+
+# -------------------------------------------------------------------
+# Node / Frontend
+# -------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vite/
+dist/
+build/
+
+# -------------------------------------------------------------------
+# VS Code / JetBrains / Mac
+# -------------------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+
+# -------------------------------------------------------------------
+# Docker / Cloud Run
+# -------------------------------------------------------------------
+# Ignore local images and artifacts
+*.log
+*.pid
+*.tar
+*.bak
+
+# -------------------------------------------------------------------
+# Firebase / Credentials / Secrets
+# -------------------------------------------------------------------
+service-account.json
+firebase-debug.log
+.env
+.env.*
+
+# -------------------------------------------------------------------
+# System / Misc
+# -------------------------------------------------------------------
+Thumbs.db
+*.swp

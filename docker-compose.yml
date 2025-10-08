@@ -1,0 +1,10 @@
+services:
+  backend:
+    build: ./backend
+    environment: [APP_PORT=9000]
+    expose: ["9000"]
+
+  nginx:
+    build: ./nginx
+    ports: ["8080:8080"]
+    depends_on: [backend]
