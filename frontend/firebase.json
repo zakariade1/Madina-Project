@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "run": {
+          "serviceId": "madina-app",
+          "region": "us-west1",
+          "projectId": "medina-474505"
+        }
+      }
+    ]
+  }
+}
