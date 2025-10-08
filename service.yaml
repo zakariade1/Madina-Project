@@ -8,15 +8,11 @@ spec:
       containers:
         - name: nginx
           image: us-west1-docker.pkg.dev/medina-474505/madina-repo/nginx:latest
-          env:
-            - name: PORT
-              value: "8080"
+          # REMOVE the PORT env; Cloud Run provides it.
           ports:
-            - containerPort: 8080
+            - containerPort: 8080 # ok to keep; Cloud Run will map $PORT to this container
           resources:
-            limits:
-              cpu: "1"
-              memory: "256Mi"
+            limits: { cpu: "1", memory: "256Mi" }
 
         - name: backend
           image: us-west1-docker.pkg.dev/medina-474505/madina-repo/backend:latest
@@ -24,9 +20,7 @@ spec:
             - name: APP_PORT
               value: "9000"
           resources:
-            limits:
-              cpu: "1"
-              memory: "512Mi"
+            limits: { cpu: "1", memory: "512Mi" }
 
       containerConcurrency: 80
       timeoutSeconds: 600
