@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Medina - User Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="./profile.css" rel="stylesheet">
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Header -->
+        <div class="profile-header">
+            <div class="header-content">
+                <h1><i class="fas fa-shield-alt"></i> Medina</h1>
+                <button id="logout-btn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="profile-content">
+            <div class="profile-card">
+                <div class="profile-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                
+                <h2>Complete Your Profile</h2>
+                <p class="subtitle">Please provide your information</p>
+
+                <form id="profile-form" class="profile-form">
+                    <div class="form-group">
+                        <label for="full-name">
+                            <i class="fas fa-user"></i> Full Name
+                        </label>
+                        <input 
+                            type="text" 
+                            id="full-name" 
+                            placeholder="Enter your full name" 
+                            required 
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="Enter your email" 
+                            required 
+                            readonly
+                        />
+                        <small class="form-hint">This is your registered email</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">
+                            <i class="fas fa-phone"></i> Phone Number
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            placeholder="Enter your phone number" 
+                            required 
+                        />
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn-primary">
+                            <span class="loading"></span>
+                            <i class="fas fa-save"></i> Save Profile
+                        </button>
+                    </div>
+                </form>
+
+                <div id="message"></div>
+
+                <!-- Profile Status -->
+                <div id="profile-status" class="profile-status hidden">
+                    <div class="status-content">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Profile completed!</p>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <strong>Name:</strong>
+                            <span id="display-name"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Email:</strong>
+                            <span id="display-email"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Phone:</strong>
+                            <span id="display-phone"></span>
+                        </div>
+                    </div>
+                    <button id="edit-profile-btn" class="btn-secondary">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./profile.js"></script>
+</body>
+</html>

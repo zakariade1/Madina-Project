@@ -1,4 +1,4 @@
-// --- Firebase config from environment variables ---
+// Firebase config from environment variables
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -8,7 +8,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
-// ------------------------------
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
@@ -23,26 +22,16 @@ import {
   signOut,
 } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
 
-// Debug: Check if Firebase config is loaded
-console.log('Firebase Config loaded:', {
-  apiKey: !!firebaseConfig.apiKey,
-  authDomain: !!firebaseConfig.authDomain,
-  projectId: !!firebaseConfig.projectId,
-  appId: !!firebaseConfig.appId
-});
-
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
-await setPersistence(auth, browserLocalPersistence); // keep session across reloads
+await setPersistence(auth, browserLocalPersistence);
 
 console.log('Firebase initialized successfully!');
-console.log('Analytics initialized:', !!analytics);
 
 const $ = (id) => document.getElementById(id);
 const statusEl = $("status");
-const authForm = $("auth-form");
-const userActions = $("user-actions");
 const messageEl = $("message");
 
 // Helper functions
@@ -55,34 +44,35 @@ const showMessage = (message, type = 'error') => {
 
 const showLoading = (button) => {
   const loading = button.querySelector('.loading');
-  loading.style.display = 'inline-block';
+  if (loading) {
+    loading.style.display = 'inline-block';
+  }
   button.disabled = true;
 };
 
 const hideLoading = (button) => {
   const loading = button.querySelector('.loading');
-  loading.style.display = 'none';
+  if (loading) {
+    loading.style.display = 'none';
+  }
   button.disabled = false;
 };
 
-const updateUI = (user) => {
+onAuthStateChanged(auth, (user) => {
   if (user) {
-    statusEl.textContent = `Welcome back, ${user.email}`;
+    // Redirect to profile page if user is logged in
+    statusEl.textContent = `Redirecting to your profile...`;
     statusEl.className = 'status signed-in';
-    authForm.classList.add('hidden');
-    userActions.classList.remove('hidden');
+    setTimeout(() => {
+      window.location.href = './profile.html';
+    }, 500);
   } else {
     statusEl.textContent = 'Please sign in to continue';
     statusEl.className = 'status signed-out';
-    authForm.classList.remove('hidden');
-    userActions.classList.add('hidden');
   }
-};
-
-onAuthStateChanged(auth, (user) => {
-  updateUI(user);
 });
 
+// Sign Up
 $("signup").onclick = async () => {
   const email = $("email").value.trim();
   const pass = $("password").value;
@@ -101,9 +91,8 @@ $("signup").onclick = async () => {
   
   try {
     await createUserWithEmailAndPassword(auth, email, pass);
-    showMessage('Account created successfully! Welcome to Medina!', 'success');
-    $("email").value = '';
-    $("password").value = '';
+    showMessage('Account created successfully! Redirecting...', 'success');
+    // Will auto-redirect via onAuthStateChanged
   } catch (e) {
     let errorMessage = 'An error occurred';
     switch (e.code) {
@@ -125,6 +114,7 @@ $("signup").onclick = async () => {
   }
 };
 
+// Sign In
 $("signin").onclick = async () => {
   const email = $("email").value.trim();
   const pass = $("password").value;
@@ -138,9 +128,8 @@ $("signin").onclick = async () => {
   
   try {
     await signInWithEmailAndPassword(auth, email, pass);
-    showMessage('Welcome back!', 'success');
-    $("email").value = '';
-    $("password").value = '';
+    showMessage('Welcome back! Redirecting...', 'success');
+    // Will auto-redirect via onAuthStateChanged
   } catch (e) {
     let errorMessage = 'An error occurred';
     switch (e.code) {
@@ -165,6 +154,7 @@ $("signin").onclick = async () => {
   }
 };
 
+// Reset Password
 $("reset").onclick = async () => {
   const email = $("email").value.trim();
   
@@ -192,11 +182,3 @@ $("reset").onclick = async () => {
   }
 };
 
-$("logout").onclick = async () => {
-  try {
-    await signOut(auth);
-    showMessage('You have been signed out successfully', 'success');
-  } catch (e) {
-    showMessage('Failed to sign out. Please try again.');
-  }
-};
