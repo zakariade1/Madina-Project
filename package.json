@@ -1,0 +1,17 @@
+{
+  "name": "medina",
+  "version": "1.0.0",
+  "description": "Firebase Authentication App",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["firebase", "authentication", "vite"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^7.1.9"
+  }
+}
