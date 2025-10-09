@@ -39,3 +39,8 @@ def profile():
         merge=True
     )
     return jsonify(ok=True)
+@app.route("/api/test-db", methods=["GET"])
+def test_db():
+    doc_ref = db.collection("test").document("ping")
+    doc_ref.set({"message": "hello from backend"})
+    return jsonify({"status": "firestore connected"})
