@@ -1,4 +1,5 @@
 FROM nginx:stable-alpine
+RUN apk add --no-cache bash netcat-openbsd
 COPY nginx.conf /etc/nginx/nginx.conf.template
-# Expand $PORT at runtime
-CMD ["/bin/sh","-c","envsubst '$$PORT' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
